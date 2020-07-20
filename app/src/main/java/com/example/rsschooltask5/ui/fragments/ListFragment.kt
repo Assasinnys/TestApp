@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsschooltask5.R
@@ -18,10 +19,19 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        bindViewModel()
     }
 
     private fun initRecyclerView() {
         rv_cats.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rv_cats.adapter = CatListAdapter()
+        rv_cats.adapter = CatListAdapter {
+            viewModel.requestNextPage()
+        }
+    }
+
+    private fun bindViewModel() {
+        viewModel.getCatList().observe(viewLifecycleOwner) {
+            (rv_cats.adapter as CatListAdapter).setCats(it)
+        }
     }
 }
