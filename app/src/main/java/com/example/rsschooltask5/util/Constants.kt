@@ -9,3 +9,4 @@ const val FULL_SIZE = "full"
 const val RESULT_LIMIT = 10
 const val RESPONSE_FORMAT = "json"
 const val CATS_ORDER = "ASC"
+const val CAT_KEY_BUNDLE = "cat"

@@ -9,7 +9,7 @@ import coil.transform.CircleCropTransformation
 import com.example.rsschooltask5.App
 import com.example.rsschooltask5.api.CatsApi
 import com.example.rsschooltask5.model.CatJson
-import com.example.rsschooltask5.model.CatWithImage
+import com.example.rsschooltask5.model.Cat
 import com.example.rsschooltask5.util.*
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ListFragmentViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val catList = MutableLiveData<MutableList<CatWithImage>>(mutableListOf())
+    private val catList = MutableLiveData<MutableList<Cat>>(mutableListOf())
     private val isLoading = MutableLiveData<Boolean>(true)
     private val nextPageLoading = MutableLiveData<Boolean>(false)
 
@@ -33,7 +33,7 @@ class ListFragmentViewModel(app: Application) : AndroidViewModel(app) {
         updateUI()
     }
 
-    fun getCatList(): LiveData<MutableList<CatWithImage>> = catList
+    fun getCatList(): LiveData<MutableList<Cat>> = catList
     fun isLoading(): LiveData<Boolean> = isLoading
     fun getNextPageLoading(): LiveData<Boolean> = nextPageLoading
 
@@ -41,13 +41,13 @@ class ListFragmentViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             showLoading()
             val response = catsApi.getCats(
-                API_KEY, SMALL_SIZE, CATS_ORDER, RESULT_LIMIT, page, RESPONSE_FORMAT
+                API_KEY, FULL_SIZE, CATS_ORDER, RESULT_LIMIT, page, RESPONSE_FORMAT
             )
             if (response.isSuccessful) {
                 paginationCount = response.headers()[PAGINATION_HEADER]?.toInt() ?: 0
                 Log.d("ASD", "parg count = $paginationCount")
                 val catsWithImages = requestCatImages(response.body())
-                catList.value = (catList.value?.plus(catsWithImages) as MutableList<CatWithImage>)
+                catList.value = (catList.value?.plus(catsWithImages) as MutableList<Cat>)
          } else {
                 Log.e("ASD", "Error due loading")
             }
@@ -65,8 +65,8 @@ class ListFragmentViewModel(app: Application) : AndroidViewModel(app) {
         nextPageLoading.value = false
     }
 
-    private suspend fun requestCatImages(catJsonList: List<CatJson>?): List<CatWithImage> {
-        val catsWithImage = mutableListOf<CatWithImage>()
+    private suspend fun requestCatImages(catJsonList: List<CatJson>?): List<Cat> {
+        val catsWithImage = mutableListOf<Cat>()
         if (catJsonList.isNullOrEmpty()) return catsWithImage
 
         catJsonList.forEach { cat ->
@@ -74,9 +74,10 @@ class ListFragmentViewModel(app: Application) : AndroidViewModel(app) {
                 .transformations(CircleCropTransformation()).build()
             val image = loader.execute(request).drawable
             catsWithImage.add(
-                CatWithImage(
+                Cat(
                     image = image,
-                    category = cat.categories.joinToString(", ") { it.name }
+                    category = cat.categories.joinToString(", ") { it.name },
+                    imageUrl = cat.url
                 )
             )
         }

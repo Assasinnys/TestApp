@@ -1,12 +1,11 @@
 package com.example.rsschooltask5.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.rsschooltask5.model.CatJson
-import com.example.rsschooltask5.model.CatWithImage
+import com.example.rsschooltask5.model.Cat
 
 class CatsDiffUtilsCallback(
-    private val oldList: List<CatWithImage>,
-    private val newList: List<CatWithImage>
+    private val oldList: List<Cat>,
+    private val newList: List<Cat>
 ) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

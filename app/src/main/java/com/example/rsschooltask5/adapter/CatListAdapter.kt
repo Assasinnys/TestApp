@@ -6,20 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsschooltask5.R
-import com.example.rsschooltask5.model.CatWithImage
+import com.example.rsschooltask5.model.Cat
 import com.example.rsschooltask5.util.CatsDiffUtilsCallback
 import kotlinx.android.synthetic.main.item_cat.view.*
 import kotlinx.android.synthetic.main.item_progress.view.*
 
 class CatListAdapter(
-    private var cats: MutableList<CatWithImage> = mutableListOf(),
-    private val onCatPhotoClickListener: () -> Unit
+    private var cats: MutableList<Cat> = mutableListOf(),
+    private val onCatPhotoClickListener: (cat: Cat) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**
      * For progress bar at the end correct work, LiveData's list and adapter's list must be separated from each other
      */
-    fun setCats(newCats: MutableList<CatWithImage>) {
+    fun setCats(newCats: MutableList<Cat>) {
         val diffCallback = CatsDiffUtilsCallback(cats, newCats)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
@@ -42,7 +42,7 @@ class CatListAdapter(
         return when (viewType) {
             NORMAL -> CatViewHolder(
                 inflater.inflate(R.layout.item_cat, parent, false),
-                onCatPhotoClickListener
+                this
             )
             LOADING -> LoadingViewHolder(inflater.inflate(R.layout.item_progress, parent, false))
             else -> throw IllegalArgumentException()
@@ -62,7 +62,7 @@ class CatListAdapter(
         if (cats.isEmpty() || cats[cats.lastIndex].recyclerLoadingFlag) return
 
         cats.add(
-            CatWithImage(
+            Cat(
                 recyclerLoadingFlag = true
             )
         )
@@ -76,13 +76,16 @@ class CatListAdapter(
         notifyItemRemoved(cats.size)
     }
 
-    class CatViewHolder(private val root: View, private val onCatPhotoClickListener: () -> Unit) :
+    // TODO delete adapter link from view holder
+    class CatViewHolder(private val root: View, private val adapter: CatListAdapter) :
         RecyclerView.ViewHolder(root) {
         init {
-            root.iv_cat_photo.setOnClickListener { onCatPhotoClickListener() }
+            root.iv_cat_photo.setOnClickListener {
+                adapter.onCatPhotoClickListener(adapter.cats[adapterPosition])
+            }
         }
 
-        fun bind(cat: CatWithImage) {
+        fun bind(cat: Cat) {
             root.iv_cat_photo.setImageDrawable(cat.image)
             root.tv_cat_category.text = cat.category
         }
