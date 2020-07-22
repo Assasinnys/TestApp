@@ -10,30 +10,21 @@ import androidx.lifecycle.viewModelScope
 import coil.Coil
 import coil.request.GetRequest
 import com.example.rsschooltask5.App
-import com.example.rsschooltask5.api.CatsApi
-import com.example.rsschooltask5.model.Cat
-import com.example.rsschooltask5.util.BASE_URL
 import com.example.rsschooltask5.util.CAT_KEY_BUNDLE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class DetailFragmentViewModel(app: Application) : AndroidViewModel(app) {
-    private val image = MutableLiveData<Drawable>(null)
-//    private val category = MutableLiveData<List<Catego>>
 
-    private var cat: Cat? = null
+    private val image = MutableLiveData<Drawable>(null)
+    private var catImageUrl: String? = null
     private val loader = Coil.imageLoader(getApplication<App>())
-    private val catsApi = Retrofit.Builder().baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build().create(CatsApi::class.java)
 
     fun getImageData(): LiveData<Drawable> = image
 
     fun saveArgs(args: Bundle?) {
-        cat = args?.get(CAT_KEY_BUNDLE) as Cat
+        catImageUrl = args?.getString(CAT_KEY_BUNDLE)
         updateUI()
     }
 
@@ -45,7 +36,7 @@ class DetailFragmentViewModel(app: Application) : AndroidViewModel(app) {
 
     private suspend fun loadCatPhoto(): Drawable? {
         return withContext(Dispatchers.IO) {
-            val coilRequest = GetRequest.Builder(getApplication<App>()).data(cat?.imageUrl).build()
+            val coilRequest = GetRequest.Builder(getApplication<App>()).data(catImageUrl).build()
             loader.execute(coilRequest).drawable
         }
     }

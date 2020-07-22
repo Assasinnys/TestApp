@@ -41,8 +41,8 @@ class CatListAdapter(
 
         return when (viewType) {
             NORMAL -> CatViewHolder(
-                inflater.inflate(R.layout.item_cat, parent, false),
-                this
+                root = inflater.inflate(R.layout.item_cat, parent, false),
+                adapter = this
             )
             LOADING -> LoadingViewHolder(inflater.inflate(R.layout.item_progress, parent, false))
             else -> throw IllegalArgumentException()

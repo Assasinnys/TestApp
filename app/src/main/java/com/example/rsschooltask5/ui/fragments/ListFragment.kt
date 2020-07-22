@@ -32,14 +32,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         rv_cats.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rv_cats.adapter = CatListAdapter {
             findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundleOf(
-                CAT_KEY_BUNDLE to it))
+                CAT_KEY_BUNDLE to it.imageUrl))
         }
         rv_cats.addOnScrollListener(paginationListener)
     }
 
     private fun bindViewModel() {
         viewModel.getCatList().observe(viewLifecycleOwner) {
-//            catsAdapter().removeLoadingView()
             catsAdapter().setCats(it)
         }
         viewModel.isLoading().observe(viewLifecycleOwner) {
