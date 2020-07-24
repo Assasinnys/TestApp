@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RS School Task 5</string>
+    <string name="btn_gallery_text">Save to gallery</string>
+    <string name="toast_photo_saved">Photo saved to gallery</string>
 </resources>
