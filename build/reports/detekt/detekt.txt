@@ -1,0 +1,1 @@
+WildcardImport - [ListFragmentViewModel.kt] at G:\android_projects\study-projects\RSSchoolTask5\app\src\main\java\com\example\rsschooltask5\viewmodel\ListFragmentViewModel.kt:16:1 - Signature=ListFragmentViewModel.kt$import com.example.rsschooltask5.util.*

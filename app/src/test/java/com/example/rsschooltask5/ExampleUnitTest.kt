@@ -1,8 +1,9 @@
 package com.example.rsschooltask5
 
+/* ktlint-disable no-wildcard-imports */
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
+/* ktlint-disable no-wildcard-imports */
 
 /**
  * Example local unit test, which will execute on the development machine (host).

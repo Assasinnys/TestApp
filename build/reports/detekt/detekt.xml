@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+<file name="G:\android_projects\study-projects\RSSchoolTask5\app\src\main\java\com\example\rsschooltask5\viewmodel\ListFragmentViewModel.kt">
+	<error line="16" column="1" severity="warning" message="com.example.rsschooltask5.util.* is a wildcard import. Replace it with fully qualified imports." source="detekt.WildcardImport" />
+</file>
+</checkstyle>
