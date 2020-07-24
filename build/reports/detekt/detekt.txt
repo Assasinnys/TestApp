@@ -1,1 +1,1 @@
-WildcardImport - [CatRepository.kt] at G:\android_projects\study-projects\RSSchoolTask5\app\src\main\java\com\example\rsschooltask5\repository\CatRepository.kt:18:1 - Signature=CatRepository.kt$import com.example.rsschooltask5.util.* // ktlint-disable no-wildcard-imports
+WildcardImport - [CatRepository.kt] at G:\android_projects\study-projects\RSSchoolTask5\app\src\main\java\com\example\rsschooltask5\repository\CatRepository.kt:18:1 - Signature=CatRepository.kt$import com.example.rsschooltask5.util.*

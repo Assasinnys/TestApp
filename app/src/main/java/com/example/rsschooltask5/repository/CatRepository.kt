@@ -9,22 +9,16 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media.IS_PENDING
 import android.util.Log
 import androidx.core.content.contentValuesOf
-import coil.Coil
+import coil.ImageLoader
 import coil.request.GetRequest
 import coil.transform.CircleCropTransformation
 import com.example.rsschooltask5.api.CatsApi
 import com.example.rsschooltask5.repository.model.Cat
 import com.example.rsschooltask5.repository.model.CatJson
-import com.example.rsschooltask5.util.* // ktlint-disable no-wildcard-imports
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import com.example.rsschooltask5.util.* // ktlint-disable
+import javax.inject.Inject
 
-class CatRepository(private val appContext: Context) {
-
-    private val imageLoader = Coil.imageLoader(appContext)
-    private val catsApi = Retrofit.Builder().baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build().create(CatsApi::class.java)
+class CatRepository @Inject constructor(val appContext: Context, val imageLoader: ImageLoader, val catsApi: CatsApi) {
 
     var paginationCount: Int = 0
         private set
@@ -80,7 +74,7 @@ class CatRepository(private val appContext: Context) {
         }
 
         val cv = ContentValues().apply {
-            put(MediaStore.Images.Media.DISPLAY_NAME, "My_Awesome_Cat.png")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/png")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 put(IS_PENDING, 1)
             }

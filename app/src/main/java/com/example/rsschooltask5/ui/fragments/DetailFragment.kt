@@ -1,18 +1,29 @@
 package com.example.rsschooltask5.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.rsschooltask5.R
+import com.example.rsschooltask5.util.daggerAppComponent
 import com.example.rsschooltask5.viewmodel.DetailFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
+import javax.inject.Inject
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
-    private val viewModel: DetailFragmentViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: DetailFragmentViewModel by viewModels { viewModelFactory }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        daggerAppComponent().inject(this)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

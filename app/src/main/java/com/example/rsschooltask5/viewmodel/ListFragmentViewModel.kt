@@ -1,24 +1,23 @@
 package com.example.rsschooltask5.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rsschooltask5.App
 import com.example.rsschooltask5.repository.CatRepository
 import com.example.rsschooltask5.repository.model.Cat
 import com.example.rsschooltask5.util.RESULT_LIMIT
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListFragmentViewModel(app: Application) : AndroidViewModel(app) {
+@Suppress("MemberVisibilityCanBePrivate")
+class ListFragmentViewModel @Inject constructor(val catRepository: CatRepository) : ViewModel() {
 
     private val catList = MutableLiveData<MutableList<Cat>>(mutableListOf())
     private val isLoading = MutableLiveData<Boolean>(true)
     private val nextPageLoading = MutableLiveData<Boolean>(false)
 
-    private val catRepository: CatRepository = (app as App).catRepository
     private var page = 0
     private var paginationCount = 0
 

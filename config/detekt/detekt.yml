@@ -199,11 +199,11 @@ exceptions:
     exceptionNames:
       - ArrayIndexOutOfBoundsException
       - Error
-      - Exception
+      #- Exception
       - IllegalMonitorStateException
       - NullPointerException
       - IndexOutOfBoundsException
-      - RuntimeException
+      #- RuntimeException
       - Throwable
     allowedExceptionNameRegex: '_|(ignore|expected).*'
   TooGenericExceptionThrown:
@@ -212,7 +212,7 @@ exceptions:
       - Error
       - Exception
       - Throwable
-      - RuntimeException
+      #- RuntimeException
 
 formatting:
   active: true
