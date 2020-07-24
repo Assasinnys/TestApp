@@ -1,4 +1,4 @@
-package com.example.rsschooltask5.model
+package com.example.rsschooltask5.repository.model
 
 import android.graphics.drawable.Drawable
 

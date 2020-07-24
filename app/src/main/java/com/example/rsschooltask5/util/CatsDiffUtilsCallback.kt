@@ -1,7 +1,7 @@
 package com.example.rsschooltask5.util
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.rsschooltask5.model.Cat
+import com.example.rsschooltask5.repository.model.Cat
 
 class CatsDiffUtilsCallback(
     private val oldList: List<Cat>,

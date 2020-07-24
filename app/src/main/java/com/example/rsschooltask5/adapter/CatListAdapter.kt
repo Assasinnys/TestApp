@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rsschooltask5.R
-import com.example.rsschooltask5.model.Cat
+import com.example.rsschooltask5.repository.model.Cat
 import com.example.rsschooltask5.util.CatsDiffUtilsCallback
 import kotlinx.android.synthetic.main.item_cat.view.*
 import kotlinx.android.synthetic.main.item_progress.view.*

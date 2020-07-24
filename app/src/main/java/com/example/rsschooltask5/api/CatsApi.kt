@@ -1,6 +1,6 @@
 package com.example.rsschooltask5.api
 
-import com.example.rsschooltask5.model.CatJson
+import com.example.rsschooltask5.repository.model.CatJson
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header

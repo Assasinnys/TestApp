@@ -1,4 +1,4 @@
-package com.example.rsschooltask5.model
+package com.example.rsschooltask5.repository.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
