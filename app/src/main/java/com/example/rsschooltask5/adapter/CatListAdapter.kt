@@ -39,7 +39,7 @@ class CatListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater =
-            LayoutInflater.from(parent.context)/*.inflate(R.layout.item_cat, parent, false)*/
+            LayoutInflater.from(parent.context)
 
         return when (viewType) {
             NORMAL -> CatViewHolder(
@@ -70,13 +70,6 @@ class CatListAdapter(
             )
             notifyItemInserted(cats.lastIndex)
         }
-    }
-
-    fun removeLoadingView() {
-        if (cats.isEmpty() || !cats[cats.lastIndex].recyclerLoadingFlag) return
-
-        cats.removeAt(cats.lastIndex)
-        notifyItemRemoved(cats.size)
     }
 
     // TODO delete adapter link from view holder
