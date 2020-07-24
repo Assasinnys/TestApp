@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_progress.view.*
 
 class CatListAdapter(
     private var cats: MutableList<Cat> = mutableListOf(),
-    private val onCatPhotoClickListener: (cat: Cat) -> Unit
+    private val onCatPhotoClickListener: (cat: Cat?) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**
@@ -42,7 +42,7 @@ class CatListAdapter(
         return when (viewType) {
             NORMAL -> CatViewHolder(
                 root = inflater.inflate(R.layout.item_cat, parent, false),
-                adapter = this
+                listener = onCatPhotoClickListener
             )
             LOADING -> LoadingViewHolder(inflater.inflate(R.layout.item_progress, parent, false))
             else -> throw IllegalArgumentException()
@@ -60,7 +60,6 @@ class CatListAdapter(
 
     fun addLoadingView() {
         if (cats.isEmpty() || cats[cats.lastIndex].recyclerLoadingFlag) return
-
         cats.add(
             Cat(
                 recyclerLoadingFlag = true
@@ -77,15 +76,19 @@ class CatListAdapter(
     }
 
     // TODO delete adapter link from view holder
-    class CatViewHolder(private val root: View, private val adapter: CatListAdapter) :
+    class CatViewHolder(private val root: View, private val listener: (cat: Cat?) -> Unit) :
         RecyclerView.ViewHolder(root) {
+
+        private var cat: Cat? = null
+
         init {
             root.iv_cat_photo.setOnClickListener {
-                adapter.onCatPhotoClickListener(adapter.cats[adapterPosition])
+                listener(cat)
             }
         }
 
         fun bind(cat: Cat) {
+            this.cat = cat
             root.iv_cat_photo.setImageDrawable(cat.image)
             root.tv_cat_category.text = cat.category
         }

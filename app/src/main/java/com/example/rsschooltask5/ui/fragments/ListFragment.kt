@@ -32,7 +32,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         rv_cats.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rv_cats.adapter = CatListAdapter {
             findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundleOf(
-                CAT_KEY_BUNDLE to it.imageUrl))
+                CAT_KEY_BUNDLE to it?.imageUrl))
         }
         rv_cats.addOnScrollListener(paginationListener)
     }
