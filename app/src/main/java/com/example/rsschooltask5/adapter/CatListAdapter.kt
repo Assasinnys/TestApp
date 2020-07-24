@@ -1,5 +1,7 @@
 package com.example.rsschooltask5.adapter
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,13 +61,15 @@ class CatListAdapter(
     }
 
     fun addLoadingView() {
-        if (cats.isEmpty() || cats[cats.lastIndex].recyclerLoadingFlag) return
-        cats.add(
-            Cat(
-                recyclerLoadingFlag = true
+        Handler(Looper.getMainLooper()).post {
+            if (cats.isEmpty() || cats[cats.lastIndex].recyclerLoadingFlag) return@post
+            cats.add(
+                Cat(
+                    recyclerLoadingFlag = true
+                )
             )
-        )
-        notifyItemInserted(cats.lastIndex)
+            notifyItemInserted(cats.lastIndex)
+        }
     }
 
     fun removeLoadingView() {
